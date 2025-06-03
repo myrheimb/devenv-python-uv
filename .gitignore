@@ -1,0 +1,25 @@
+# devenv
+.devenv*
+devenv.local.nix
+.devenv.flake.nix
+
+# direnv
+.direnv
+
+# dotenv
+.env
+
+# macOS
+.DS_Store
+
+# mypy
+.mypy_cache
+
+# pytest
+.pytest_cache
+
+# virtualenv
+.venv
+
+# pre-commit
+.pre-commit-config.yaml

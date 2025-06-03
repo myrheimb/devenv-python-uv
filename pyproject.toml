@@ -1,0 +1,25 @@
+[project]
+name = "devenv-python-uv"
+version = "2025.6.3"
+description = "Python project template using devenv and uv."
+authors = ["myrheimb@gmail.com"]
+homepage = "https://github.com/myrheimb"
+readme = "README.md"
+license = "MIT"
+
+requires-python = ">=3.12"
+
+dependencies = [
+    "numpy",
+    "requests>=2.32.3",
+    "selenium>=4.33.0",
+]
+
+[dependency-groups]
+dev = [
+    "black>=25.1.0",
+    "mypy>=1.16.0",
+    "pdbpp>=0.11.6",
+    "pytest>=8.4.0",
+    "pytest-cov>=6.1.1",
+]
