@@ -10,9 +10,7 @@ license = "MIT"
 requires-python = ">=3.12"
 
 dependencies = [
-    "numpy",
     "requests>=2.32.3",
-    "selenium>=4.33.0",
 ]
 
 [dependency-groups]
