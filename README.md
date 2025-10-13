@@ -1,4 +1,5 @@
 # devenv-python-uv
+[![CI](https://github.com/myrheimb/devenv-python-uv/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/myrheimb/devenv-python-uv/actions/workflows/ci.yml)
 
 A simple template to get started with a new Python project using [devenv](https://devenv.sh/) and [uv](https://docs.astral.sh/uv/).
 
