@@ -12,14 +12,15 @@ devenv.local.nix
 # macOS
 .DS_Store
 
-# mypy
-.mypy_cache
-
 # pytest
 .pytest_cache
+.coverage
+htmlcov
+
+# cache
+.pycache
+.pytest_cache
+.ruff_cache
 
 # virtualenv
 .venv
-
-# pre-commit
-.pre-commit-config.yaml

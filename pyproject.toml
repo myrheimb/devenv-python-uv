@@ -1,23 +1,86 @@
 [project]
 name = "devenv-python-uv"
-version = "2025.6.3"
+version = "2025.10.11"
 description = "Python project template using devenv and uv."
-authors = ["myrheimb@gmail.com"]
+authors = [{ name = "Bjørnar Myrheim", email = "myrheimb@gmail.com" },]
 homepage = "https://github.com/myrheimb"
 readme = "README.md"
 license = "MIT"
 
-requires-python = ">=3.12"
+requires-python = ">=3.13"
 
 dependencies = [
-    "requests>=2.32.3",
+    "requests",
 ]
 
 [dependency-groups]
 dev = [
-    "black>=25.1.0",
-    "mypy>=1.16.0",
-    "pdbpp>=0.11.6",
-    "pytest>=8.4.0",
-    "pytest-cov>=6.1.1",
+    "codespell",
+    "pdbpp",
+    "pre-commit",
+    "pre-commit-hooks",
+    "pytest",
+    "pytest-cov",
+    "ruff",
+    "zuban",
 ]
+
+[project.scripts]
+# Lets you run e.g., `uv run main`
+main = "app.main:main"
+
+[tool.ruff]
+line-length = 89  # mimic Black’s 88 soft limit
+target-version = "py313"
+extend-exclude = ["*.ipynb"]
+exclude = [".venv", ".devenv", ".direnv"]
+
+[tool.ruff.format]
+docstring-code-format = true
+docstring-code-line-length = 20
+indent-style = "space"
+line-ending = "auto"
+
+[tool.ruff.lint]
+# By default, Ruff omits rules that overlap with the use of a formatter, like Black,
+# but we can override this behavior by explicitly adding the rule. E.g., E501.
+extend-select = [
+    "E501", # line-too-long
+    "D",    # pydocstyle
+    "F",    # flake8
+    "I",    # isort
+    "T",    # typing
+]
+ignore = [
+    "D100", # Missing docstring in public module
+]
+exclude = []
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.isort]
+from-first = true
+force-single-line = true
+no-sections = true
+lines-between-types = 1
+
+[tool.mypy]
+mypy_path = "src"
+follow_imports = "silent"
+check_untyped_defs = true
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+exclude = []
+
+[tool.pytest.ini_options]
+pythonpath = ["src/app"]
+addopts = "--cov=src --cov-report=term-missing --cov-report=html"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/app"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
