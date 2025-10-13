@@ -1,0 +1,29 @@
+# https://taskfile.dev
+
+version: "3"
+
+tasks:
+  default:
+    desc: Available tasks for this project.
+    cmds: [task --list]
+
+  clean:
+    desc: Remove the .devenv, .direnv, .venv, and cache folders.
+    cmds:
+      - rm -rf .devenv .direnv .venv .ruff_cache .pycache .pytest_cache htmlcov
+
+  lint:
+    desc: Run code formatting, import sorting, and lint checks.
+    cmds:
+      - ruff format ./src # Format code (Black)
+      - ruff check --fix ./src # Sort imports and run lint checks (isort and flake8)
+
+  type:
+    desc: Run type checks.
+    cmds:
+      - zuban mypy ./src
+
+  unit:
+    desc: Run unit tests.
+    cmds:
+      - pytest

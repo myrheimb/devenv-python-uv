@@ -1,0 +1,35 @@
+# Run pre-commit and unit tests on every push to main and PRs.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+# Prevent multiple jobs running after fast subsequent pushes
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v5
+      - uses: cachix/install-nix-action@v31
+      - uses: cachix/cachix-action@v16
+        with:
+          name: devenv-python-uv
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
+      - name: Install devenv.sh
+        run: nix profile add nixpkgs#devenv
+
+      - name: Run pre-commit hooks
+        run: devenv shell pre-commit run --all-files
+
+      - name: Run unit tests
+        run: devenv shell task unit

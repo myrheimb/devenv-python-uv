@@ -1,0 +1,52 @@
+default_stages: [pre-commit, pre-push]
+repos:
+  - repo: local
+    hooks:
+      - id: codespell
+        name: Check spelling
+        description: Checks for common misspellings in text files.
+        entry: codespell --ignore-words=.aspell.en.pws
+        language: system
+        exclude: ^.*\.svg
+        types: [file, text]
+
+      - id: trailing-whitespace
+        name: Trim trailing space
+        entry: trailing-whitespace-fixer
+        language: system
+        types: [file, text]
+
+      - id: end-of-file-fixer
+        name: Fix end of files
+        description: Ensures that a file is either empty, or ends with one newline.
+        entry: end-of-file-fixer
+        language: system
+        types: [file, text]
+
+      - id: check-merge-conflict
+        name: Check for merge conflicts
+        description: Check for files that contain merge conflict strings.
+        entry: check-merge-conflict
+        language: system
+        types: [file, text]
+
+      - id: ruff-format
+        name: Ruff formatter
+        description: Formats code (Black equivalent)
+        entry: ruff format --config pyproject.toml
+        language: system
+        types: [python]
+
+      - id: ruff-lint
+        name: Ruff import sorting and linting
+        description: Sorts imports (isort and flake8 equivalent)
+        entry: ruff check --fix --force-exclude --config pyproject.toml
+        language: system
+        types: [python]
+
+      - id: zuban-mypy
+        name: Zuban type checking
+        description: Optional static typing for Python
+        entry: zuban mypy ./src --config-file pyproject.toml
+        language: system
+        types: [python]
